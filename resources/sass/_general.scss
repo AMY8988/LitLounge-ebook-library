@@ -1,0 +1,19 @@
+body{
+    font-family: 'Inter', sans-serif;
+}
+
+.active{
+    background-color: #D75322 !important;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+.item-link{
+    transition: 0.2s;
+}
+
+.item-link:hover{
+    background-color: $info;
+}

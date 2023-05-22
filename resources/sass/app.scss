@@ -3,4 +3,11 @@ $success: #3B576F;
 $primary: #0A2326;
 $secondary: #DDF3E5;
 
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap');
 @import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-icons/font/bootstrap-icons.scss';
+
+@import 'general';
+

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Models\Role;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 
-class BookController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('book.index');
+        //
     }
 
     /**
@@ -27,7 +27,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request)
+    public function store(StoreRoleRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(Role $role)
     {
         //
     }
@@ -43,7 +43,7 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(Role $role)
     {
         //
     }
@@ -51,7 +51,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
         //
     }
@@ -59,7 +59,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(Role $role)
     {
         //
     }
