@@ -9,7 +9,7 @@
     <div class=" mt-2">
         <p class="text-secondary m-0 px-2 text-info text-uppercase"><i class="bi bi-archive-fill me-1"></i>Manage Book</p>
         <a href="{{ route('book.create')}}" class="item-link d-block text-secondary p-2">Add book</a>
-        <a href="#" class="item-link d-block text-secondary p-2">Book List</a>
+        <a href="{{ route('book.show' , 3) }}" class="item-link d-block text-secondary p-2">Book Detail</a>
 
     </div>
 

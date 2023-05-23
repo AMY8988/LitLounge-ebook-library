@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
-use App\Models\Category;
+use App\Models\CategoryBook;
+use App\Http\Requests\StoreCategoryBookRequest;
+use App\Http\Requests\UpdateCategoryBookRequest;
 
-class BookController extends Controller
+class CategoryBookController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('book.index');
+        //
     }
 
     /**
@@ -22,14 +21,13 @@ class BookController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('book.create' , compact('categories'));
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request)
+    public function store(StoreCategoryBookRequest $request)
     {
         //
     }
@@ -37,16 +35,15 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(CategoryBook $categoryBook)
     {
-        
-        return view('book.show' , compact('book'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(CategoryBook $categoryBook)
     {
         //
     }
@@ -54,7 +51,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(UpdateCategoryBookRequest $request, CategoryBook $categoryBook)
     {
         //
     }
@@ -62,7 +59,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(CategoryBook $categoryBook)
     {
         //
     }
