@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-
-    public function categories(){
-      return  $this->belongsToMany(Book::class);
-    }
 }
