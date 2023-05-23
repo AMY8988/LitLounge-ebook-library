@@ -17,3 +17,7 @@ a{
 .item-link:hover{
     background-color: $info;
 }
+
+.dropdown-item:hover{
+    color: $primary !important;
+}

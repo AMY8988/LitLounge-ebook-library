@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,12 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [HomeController::class , 'index']);
 
 Route::get('dashboard' , function(){
     return view('layout.master');
 });
 
 Route::get('dashboard/book' , [BookController::class , 'index'])->name('book.index');
+
+Route::resource('book', BookController::class);
+Route::resource('category', CategoryController::class);
+Route::resource('user', UserController::class);

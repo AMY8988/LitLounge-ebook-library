@@ -18625,3 +18625,7 @@ a {
 .item-link:hover {
   background-color: #D75322;
 }
+
+.dropdown-item:hover {
+  color: #0A2326 !important;
+}

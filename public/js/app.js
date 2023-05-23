@@ -8438,14 +8438,17 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
-window.$ = window.jQuery = require('jquery');
 
-$(document).ready(function () {
-  $('#summernote').summernote({
-    height: 400,
-    placeholder: "Description"
-  });
-});
+
+// set active in aside bar
+var currentLocation = location.href;
+var itemLink = document.querySelectorAll('.item-link');
+for (var i = 0; i < itemLink.length; i++) {
+  var link = itemLink[i].getAttribute('href');
+  if (currentLocation == link) {
+    itemLink[i].classList.add('active');
+  }
+}
 
 /***/ })
 
