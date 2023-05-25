@@ -27,7 +27,12 @@
                     @csrf
                     <div class="col-12 col-md-4 d-inline-block">
                         <label for="title" class="col-form-label fw-bold">Category Name</label>
-                        <input type="text" name="name" id="title" class="form-control" placeholder="category name" required>
+                        <input type="text" name="name" id="title" class="form-control @error('name') is-invalid
+
+                        @enderror " placeholder="category name" value="{{ old('name') }}">
+                        @error('name')
+                        <div class=" invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
                 </form>

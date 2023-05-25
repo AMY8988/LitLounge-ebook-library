@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    public function categories(){
+        return $this->belongsToMany(Category::class , 'book_categories')->withTimestamps();
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

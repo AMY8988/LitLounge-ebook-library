@@ -6,6 +6,8 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -14,7 +16,28 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('book.index');
+        
+
+        if (request('keyword')){
+            $books = Book::when( request("keyword") , function ($query){
+                $keyword = request('keyword');
+                $query->where("title" , "like" , "%$keyword%")
+                ->orWhere( "description" , "like" , "%$keyword%");
+            })->paginate(10)->withQueryString();
+        }else{
+
+            if(auth()->user()->role->id == 3){
+                $books = Book::paginate(7)->withQueryString();
+            }else{
+                $books = Book::where('user_id' , '=' , auth()->user()->id )->paginate(7)->withQueryString();
+            }
+
+        }
+
+
+
+
+        return view('book.index' , compact('books'));
     }
 
     /**
@@ -31,7 +54,29 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+
+        $categories = $request->category_id;
+        $book = new Book();
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->user_id = User::inRandomOrder()->first()->id;
+
+        if($request->hasFile('coverPhoto')){
+             $fileName = time(). "_" . $request->file('coverPhoto')->getClientOriginalName();
+             $filePath = $request->file('coverPhoto')->storeAs('photoUploads' , $fileName , 'public');
+             $book->coverPhoto = $filePath;
+        };
+
+        if($request->hasFile('fileUpload')){
+            $fileName = time(). "_" . $request->file('fileUpload')->getClientOriginalName();
+            $filePath = $request->file('fileUpload')->storeAs('fileUploads' , $fileName , 'public');
+            $book->fileUpload = $filePath;
+       }
+
+        $book->save();
+        $book->categories()->attach($categories);
+        return redirect()->route('book.index');
+        // return print_r($book);
     }
 
     /**
@@ -39,7 +84,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+
+        return view('book.show' , compact('book'));
     }
 
     /**
@@ -47,7 +93,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $categories = Category::all();
+        return view('book.edit' , compact(['book' , 'categories']));
     }
 
     /**
@@ -55,7 +102,36 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+
+
+        $book->title = $request->title;
+        $book->description = $request->description;
+        $book->user_id = User::inRandomOrder()->first()->id;
+
+        if($request->hasFile('coverPhoto')){
+
+            Storage::delete("public/photoUploads".$book->coverPhoto);
+
+             $fileName = time(). "_" . $request->file('coverPhoto')->getClientOriginalName();
+             $filePath = $request->file('coverPhoto')->storeAs('photoUploads' , $fileName , 'public');
+             $book->coverPhoto = $filePath;
+        };
+
+        if($request->hasFile('fileUpload')){
+
+            Storage::delete("public/fileUploads".$book->fileUpdate);
+
+            $fileName = time(). "_" . $request->file('fileUpload')->getClientOriginalName();
+            $filePath = $request->file('fileUpload')->storeAs('fileUploads' , $fileName , 'public');
+            $book->fileUpload = $filePath;
+       }
+
+       $book->update();
+       $categories = $request->category_id;
+       $book->categories()->sync($categories);
+
+       return redirect()->route('book.index');
+
     }
 
     /**
@@ -63,6 +139,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        Storage::delete('public/photoUploads'.$book->coverPhoto);
+        Storage::delete('public/fileUploads'.$book->fileUpload);
+        $book->delete();
+        return redirect()->route('book.index');
     }
 }

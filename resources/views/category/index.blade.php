@@ -43,7 +43,7 @@
                                 </td>
                                 <td class="now">
                                     <div class="d-flex ">
-                                        <a href="{{route("category.edit", $category->id)}}" class="btn btn-sm btn-dark me-2"><i class="bi bi-pencil"></i></a>
+                                        <a href="{{route('category.edit' , $category->id)}}" class="btn btn-sm btn-dark me-2"><i class="bi bi-pencil"></i></a>
                                         <form action="{{ route("category.destroy" , $category->id) }}" method="post">
                                             @csrf
                                             @method('delete')

@@ -11,7 +11,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'coverPhoto' => 'nullable|mimes:jpg,jpeg,png|file',
+            'title' => 'required|unique:books,title',
+            'description' => 'required',
+            'fileUpload' => 'required|file|mimes:pdf',
+            'category_id' => 'exists:categories,id'
         ];
     }
 }

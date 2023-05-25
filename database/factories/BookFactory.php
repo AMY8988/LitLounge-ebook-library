@@ -19,8 +19,7 @@ class BookFactory extends Factory
     {
         return [
             'title' => fake()->unique()->name(),
-            'summery' => fake()->realText( 100,  2),
-            'description' => fake()->realText(200 , 3),
+            'description' => fake()->realText( 100,  2),
             'user_id' => User::inRandomOrder()->first()->id
         ];
     }

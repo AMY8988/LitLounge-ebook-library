@@ -11,7 +11,9 @@
 </head>
 
 <body>
-    <div class="container-fluid bg-secondary vh-100">
+
+
+    <div class="container-fluid bg-secondary ">
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
                 <div class="container-fluid">
@@ -26,125 +28,71 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul class="navbar-nav  mb-2 me-md-4 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link btn btn-sm border border-0 rounded-pill px-3 active"
+                                <a class="nav-link px-3 Active"
                                     aria-current="page" href="#">Books</a>
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link btn btn-sm border border-0 rounded-pill px-3 dropdown-toggle"
+                                <a class="nav-link px-3 dropdown-toggle"
                                     href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     Categories
                                 </a>
                                 <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                                     @foreach ($categories as $category)
-                                    <li ><a class="dropdown-item " href="#">{{ $category->name }}</a></li>
+                                        <li><a class="dropdown-item " href="#">{{ $category->name }}</a></li>
                                     @endforeach
 
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link btn btn-sm border border-0 rounded-pill px-3 " aria-current="page"
+                                <a class="nav-link px-3 " aria-current="page"
                                     href="#">Contact Us</a>
                             </li>
                         </ul>
-                        <form class="d-flex">
-                            <button type="button" class="btn btn-sm btn-primary rounded-pill text-secondary px-3"
-                                data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Sign Up
-                            </button>
-                        </form>
+                        @auth
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle d-flex align-items-center" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <div class=" d-inline-block p-2 mx-2">
+                                        <h6 class="mb-0 text-secondary">{{ auth()->user()->name }}</h6>
+                                    </div>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a></li>
+                                </ul>
+                            </div>
+                        @endauth
+                        @guest
+
+                            <a href="{{ route('register') }}" class=" btn btn-primary rounded rounded-pill">Sign In</a>
+
+                        @endguest
                     </div>
                 </div>
             </nav>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Register Form</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <div class="container p-4 vh-100">
+                <div class="row">
+                    <div class="col-12 col-md-5">
+                        <h6>Start your reading journey today </h6>
+                        <h3 class=" fw-bolder">At LitLounge.</h3>
+                        <p style="text-decoration: underline">Dive into captivating stories, knowledge, and adventures</p>
                     </div>
-                    <div class="modal-body">
-                        <form action="{{ route('user.create') }}" method="post" enctype="multipart/form-data">
-                            @csrf
-
-                            <div class="bg-white  p-3 px-4">
-
-                                <div class="row align-items-start my-4">
-                                    <label class="col-4">Name</label>
-                                    <div class="col-8">
-                                        <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name') }}" placeholder="name" name="name">
-                                        @error('name')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row align-items-start my-4">
-                                    <label for="" class="col-4">Email Address</label>
-                                    <div class="col-8">
-                                        <input type="email" class="form-control @error('email') is-invalid @enderror "
-                                            value="{{ old('email') }}" name="email" placeholder="email">
-                                        @error('email')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row align-items-start my-4">
-                                    <label for="" class="col-4">Role</label>
-                                    <div class="col-8">
-                                        <select name="role_id" class=" form-select" id="">
-                                            <option value="">Admin</option>
-                                            <option value="">Author</option>
-                                            <option value="">Reader</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row align-items-start my-4">
-                                    <label for="" class="col-4">Password</label>
-                                    <div class="col-8">
-                                        <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                            value="{{ old('password') }}" name="password" placeholder="password">
-                                        @error('password')
-                                            <div class=" invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row align-items-start my-4">
-                                    <label for="" class="col-4">Confirm Password</label>
-                                    <div class="col-8">
-                                        <input type="password" class="form-control " name="password_confirmation"
-                                            placeholder="confirm password">
-                                    </div>
-                                </div>
-
-
-                                <div class="row align-items-start my-4">
-                                    <div class="col-4"></div>
-                                    <div class="col-8">
-                                        <button class="btn btn-primary ">Register</button>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                    {{-- <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div> --}}
+                    <div class="col-12 col-md-7"></div>
                 </div>
             </div>
-        </div>
+
+
+
+
 
     </div>
-</body>
 
-<script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
 
 </html>

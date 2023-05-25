@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-
+use App\Models\BookCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // RoleSeeder::class,
             CategorySeeder::class,
-            BookSeeder::class
+            BookSeeder::class,
+            BookCategorySeeder::class
         ]);
     }
 }

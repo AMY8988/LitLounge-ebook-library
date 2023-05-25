@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -32,9 +33,10 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
 
+
         $categories = new Category();
         $categories->name = $request->name;
-        $categories->user_id = User::inRandomOrder()->first()->id;
+        $categories->user_id = Auth::user()->id;
         $categories->save();
 
         return redirect()->route('category.index');
@@ -45,7 +47,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-       //
+       return view('category.show' , compact('category'));
     }
 
     /**
@@ -53,7 +55,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit' , compact('category'));
     }
 
     /**
@@ -61,7 +63,13 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+
+
+
+        $category->name = $request->name;
+        $category->update();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -69,6 +77,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back();
     }
 }

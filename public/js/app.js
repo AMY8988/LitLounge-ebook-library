@@ -8450,6 +8450,13 @@ for (var i = 0; i < itemLink.length; i++) {
   }
 }
 
+// let signIn = new bootstrap.Modal(document.getElementById('signIn'), {
+//             keyboard: false
+//         })
+//         window.onload = function() {
+//             signIn.show();
+// }
+
 /***/ })
 
 /******/ 	});

@@ -6,8 +6,18 @@ body{
     background-color: #D75322 !important;
 }
 
+.Active{
+    color: $info;
+    font-weight: 500;
+}
+
+.nav-link:hover{
+    color: $info !important;
+    font-weight: 500 !important;
+}
+
 a{
-    text-decoration: none !important;
+    text-decoration: none ;
 }
 
 .item-link{
@@ -20,4 +30,11 @@ a{
 
 .dropdown-item:hover{
     color: $primary !important;
+}
+
+.coverPhoto{
+    width: 200px ;
+    height: 300px;
+    object-fit: contain;
+    background-color: $info;
 }

@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Data</li>
+            <li class="breadcrumb-item" aria-current="page">Create Book</li>
         </ol>
     </nav>
 
@@ -23,44 +23,74 @@
             </div>
             <hr>
             <div class="row">
-                <form action="" class="col-12">
-                    <div class="row">
-                        <div class="col-12 col-md-8">
-                            <div class="col-12">
-                                <label for="title" class="col-form-label fw-bold">Book Title</label>
-                                <input type="text" name="title" id="title" class="form-control" required>
+                <div class="col-12 ">
+                    <form action="{{ route('book.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <div class="col-12">
+                                    <label class="col-form-label fw-bold">Book Cover Photo</label>
+                                    <input type="file" name="coverPhoto" class="form-control  @error('coverPhoto') is-invalid @enderror ">
+                                    @error('coverPhoto')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="title" class="col-form-label fw-bold">Book Title</label>
+                                    <input type="text" name="title" id="title"
+                                    class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" >
+                                    @error('title')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                                <div class="col-12">
+                                    <label class="col-form-label fw-bold">Description</label>
+                                    <textarea type="text" rows="7" name="description" class="form-control @error('description') is-invalid @enderror"></textarea>
+                                    @error('description')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="title" class="col-form-label fw-bold">Book(File Upload)</label>
+                                    <input type="file" name="fileUpload" class="form-control @error('fileUpload') is-invalid @enderror">
+                                    @error('fileUpload')
+                                        <div class=" invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="col-12">
-                                <label for="title" class="col-form-label fw-bold">Book Cover Photo</label>
-                                <input type="file" name="title" id="title" class="form-control" required>
-                            </div>
 
-                            <div class="col-12">
-                                <label  class="col-form-label fw-bold">Story</label>
-                                <textarea type="text" rows="7" name="description"  class="form-control" required></textarea>
-                            </div>
-                        </div>
 
-                        <div class="col-12 col-md-4">
-                            <label  class="col-form-label fw-bold">Categories</label>
+                            <div class="col-12 col-md-4">
+                                <label class="col-form-label fw-bold">Categories</label>
 
 
                                 @foreach ($categories as $category)
-                                <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault{{$category->id}}">
-                                <label class="form-check-label" for="flexRadioDefault{{$category->id}}">
-                                  {{ $category->name}}
-                                </label>
-                                </div>
+                                    <div class="form-check">
+
+                                        <input class="form-check-input  " type="checkbox" value="{{ $category->id }}"
+                                            name="category_id[]" id="flexRadioDefault{{ $category->id }}">
+                                        <label class="form-check-label" for="flexRadioDefault{{ $category->id }}">
+                                            {{ $category->name }}
+                                        </label>
+
+                                    </div>
                                 @endforeach
 
+                            </div>
 
                         </div>
-                    </div>
 
-                    <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
-                </form>
+                        <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
+                    </form>
+                </div>
+
+
 
             </div>
 

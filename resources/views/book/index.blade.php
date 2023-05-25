@@ -9,7 +9,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Data</li>
+            <li class="breadcrumb-item" aria-current="page">Book List</li>
         </ol>
     </nav>
 
@@ -18,34 +18,72 @@
             <!-- add-item header -->
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class=" mb-0 text-primary">
-                    Add Book
+                    Book List
                 </h5>
             </div>
             <hr>
             <div class="row">
-                <form action="">
-                    <div class="col-12 col-md-8">
-                        <div class="col-12">
-                            <label for="title" class="col-form-label fw-bold">Book Title</label>
-                            <input type="text" name="title" id="title" class="form-control" required>
-                        </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
 
-                        <div class="col-12">
-                            <label for="title" class="col-form-label fw-bold">Book Cover Photo</label>
-                            <input type="file" name="title" id="title" class="form-control" required>
-                        </div>
+                            <th>Book Name</th>
+                            <th>Cateogries</th>
+                            <th>Description</th>
+                            @if (auth()->user()->role->id == 3)<th>Author</th>@endif
+                            <th>Control</th>
 
-                        <div class="col-12">
-                            <label for="summernote" class="col-form-label fw-bold">Story</label>
-                            <textarea type="text" rows="7" name="description" id="summernote" class="form-control" required></textarea>
-                        </div>
-                    </div>
+                    </thead>
+                    <tbody>
+                        @forelse($books as $book)
 
-                    <div class="col-12 col-md-4"></div>
 
-                    <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
-                </form>
+                            <tr>
 
+                                <td>
+                                    {{ $book->title }}
+                                </td>
+                                <td style="width: 20%">
+                                    @forelse ($book->categories as $category)
+                                        <span class=" badge bg-success rounded-pill">{{ $category->name}}</span>
+                                    @empty
+                                    <span class=" badge bg-info rounded-pill">No Cateogries</span>
+                                    @endforelse
+                                </td>
+                                <td style="width: 30%">
+                                    {{ Str::words($book->description,5, '...') }}
+                                </td>
+                                @if (auth()->user()->role->id == 3)
+                                <td>
+                                    {{ $book->user->name }}
+                                </td>
+                                @endif
+                                <td>
+                                    <div class="d-flex ">
+                                        <a href="{{route('book.show' , $book->id)}}" class="btn btn-sm btn-dark me-2"><i class="bi bi-chat-square-dots-fill"></i></a>
+                                        <a href="{{route('book.edit' , $book->id)}}" class="btn btn-sm btn-dark me-2"><i class="bi bi-pencil"></i></a>
+                                        <form action="{{ route("book.destroy" , $book->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" id="del" class="btn btn-sm btn-dark "><i class="bi bi-trash3"></i></button>
+                                        </form>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+
+
+                        @empty
+
+                         @endforelse
+                    </tbody>
+                </table>
+
+                <div>
+                    {{$books->links() }}
+                </div>
             </div>
 
 

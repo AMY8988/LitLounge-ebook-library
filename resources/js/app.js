@@ -1,5 +1,5 @@
 
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 
 
@@ -14,3 +14,22 @@ for(let i= 0 ; i < itemLink.length ; i++){
         itemLink[i].classList.add('active');
     }
 }
+
+
+
+
+
+
+
+// let signIn = new bootstrap.Modal(document.getElementById('signIn'), {
+//             keyboard: false
+//         })
+//         window.onload = function() {
+//             signIn.show();
+// }
+
+
+
+
+
+
