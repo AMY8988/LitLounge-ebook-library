@@ -19,19 +19,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', [HomeController::class , 'index'])->name('home');
-Route::get('register' , [HomeController::class , 'register'])->name('register');
-Route::post('registered' , [UserController::class , 'store'])->name('user.registered');
-Route::get('login' , [HomeController::class , 'login'])->name('login');
-Route::post('loginCheck' , [UserController::class , 'loginCheck'])->name('user.loginCheck');
+
+//registeration
+Route::middleware('authed')->group(function(){
+    Route::get('register' , [HomeController::class , 'register'])->name('register');
+    Route::post('registered' , [UserController::class , 'store'])->name('user.registered');
+    Route::get('login' , [HomeController::class , 'login'])->name('login');
+    Route::post('loginCheck' , [UserController::class , 'loginCheck'])->name('user.loginCheck');
+});
+
+//user logout
 Route::get('logout' , [UserController::class , 'logout'])->name('user.logout');
 
+
+
+//Reader Page
+Route::get('home/bookList', [HomeController::class , 'bookList'])->name('home.booklist');
+Route::get('home/books/{book}', [BookController::class , 'bookShow'])->name('page.bookshow');
+Route::get('download/{book}', [BookController::class , 'downloadFile'])->name('book.download');
+
+//books base on category
+Route::get('home/bookCate' , [HomeController::class , "booksBaseCate"])->name('bookCate');
+
+//dashboard for admin and author
 Route::get('dashboard' , function(){
-    return view('dashboard.home');
+return view('dashboard.home');
 })->name('dashboard')->middleware('isAdmin&Author');
-
 Route::get('dashboard/book' , [BookController::class , 'index'])->name('book.index');
-
 Route::middleware('isAdmin&Author')->prefix('dashboard')->group(function(){
     Route::resource('book', BookController::class);
     Route::resource('category', CategoryController::class)->middleware('isAdmin');

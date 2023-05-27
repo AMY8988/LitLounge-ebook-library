@@ -24,37 +24,41 @@
             </div>
             <hr>
             <div class="row">
-                <div class="col-12 mx-2">
-                    <img src="{{ Storage::url($book->coverPhoto) }}" class="coverPhoto " alt="">
-                    <table class="table ">
+                <div class="col-12 mx-2 d-flex" style="gap: 5%">
+                    <div>
+                        <img src="{{ Storage::url($book->coverPhoto) }}" class="coverPhoto " alt="">
+                    </div>
+                    <div>
+                        <table class="table ">
 
-                        <tr>
-                            <td>Book Name</td>
-                            <td>{{ $book->title }}</td>
-                        </tr>
-                        <tr>
-                            <td>Categories</td>
-                            <td>
-                                @forelse ($book->categories as $category)
-                                    <span class=" badge bg-success">{{ $category->name }}</span>
-                                @empty
-                                    <span class=" badge bg-info">No category</span>
-                                @endforelse
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>{{ $book->description }}</td>
-                        </tr>
-                        <tr>
-                            <td>Created_at</td>
-                            <td>{{ $book->created_at }}</td>
-                        </tr>
-                        <tr>
-                            <td>Updated_at</td>
-                            <td>{{ $book->updated_at }}</td>
-                        </tr>
-                    </table>
+                            <tr>
+                                <td>Book Name -</td>
+                                <td>{{ $book->title }}</td>
+                            </tr>
+                            <tr>
+                                <td>Categories -</td>
+                                <td>
+                                    @forelse ($book->categories as $category)
+                                        <span class=" badge bg-success">{{ $category->name }}</span>
+                                    @empty
+                                        <span class=" badge bg-info">No category</span>
+                                    @endforelse
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Description -</td>
+                                <td>{{ $book->description }}</td>
+                            </tr>
+                            <tr>
+                                <td>Created_at -</td>
+                                <td>{{ $book->created_at }}</td>
+                            </tr>
+                            <tr>
+                                <td>Updated_at -</td>
+                                <td>{{ $book->updated_at }}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 

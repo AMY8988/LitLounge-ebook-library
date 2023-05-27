@@ -6,7 +6,11 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Category;
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -16,26 +20,27 @@ class BookController extends Controller
      */
     public function index()
     {
-        
 
         if (request('keyword')){
+
+            $keyword = request('keyword');
             $books = Book::when( request("keyword") , function ($query){
                 $keyword = request('keyword');
                 $query->where("title" , "like" , "%$keyword%")
                 ->orWhere( "description" , "like" , "%$keyword%");
-            })->paginate(10)->withQueryString();
+            })->orWhereHas( 'user' , function($query) use ($keyword) {
+                $query->where('name' , $keyword);
+            })->paginate(7)->withQueryString();
+
         }else{
 
             if(auth()->user()->role->id == 3){
                 $books = Book::paginate(7)->withQueryString();
             }else{
                 $books = Book::where('user_id' , '=' , auth()->user()->id )->paginate(7)->withQueryString();
-            }
+            };
 
         }
-
-
-
 
         return view('book.index' , compact('books'));
     }
@@ -47,6 +52,12 @@ class BookController extends Controller
     {
         $categories = Category::all();
         return view('book.create' , compact('categories'));
+    }
+
+    public function downloadFile(Book $book){
+
+        return response()->download(public_path( "storage/" . $book->fileUpload));
+
     }
 
     /**
@@ -84,9 +95,23 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-
-        return view('book.show' , compact('book'));
+        if(Auth::user()->role->name == 'author'){
+            if($book->user_id == Auth::user()->id){
+                return view('book.show' , compact('book'));
+            }else{
+                return abort(404);
+            }
+        }else{
+            return view('book.show' , compact('book'));
+        }
     }
+
+    public function bookshow(Book $book){
+        $categories = Category::all();
+        return view('page.bookDetail' , compact(['book' , 'categories']));
+    }
+
+  
 
     /**
      * Show the form for editing the specified resource.

@@ -8,7 +8,8 @@
                 type="submit">search</button>
         </form>
 
-        <div class="dropdown">
+
+        <div class="dropdown ms-auto">
             <button class="btn btn-primary dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <div class=" d-inline-block">

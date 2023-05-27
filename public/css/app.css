@@ -18641,9 +18641,16 @@ a {
 }
 
 .coverPhoto {
-  width: 200px;
-  height: 300px;
+  height: 250px;
   -o-object-fit: contain;
      object-fit: contain;
   background-color: #D75322;
+}
+
+.coverPhoto2 {
+  width: 200px;
+  height: 250px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  background-color: #DDF3E5;
 }

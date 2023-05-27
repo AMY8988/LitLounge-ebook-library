@@ -1,7 +1,17 @@
 @extends('layout.master')
 
+
 @section('title')
     Dashboard
+@endsection
+
+@section('searchBar')
+<form action="{{ route('book.index') }}" class="d-flex">
+    <input class="form-control form-control-sm me-2 rounded-pill" type="search"
+        placeholder="Search" name="keyword" value="{{ request('keyword') }}" aria-label="Search">
+    <button class="btn btn-sm btn-primary text-secondary px-3 rounded-pill"
+        type="submit">search</button>
+</form>
 @endsection
 
 @section('content')
@@ -9,7 +19,10 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
             <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Book List</li>
+            <li class="breadcrumb-item" aria-current="page">Book List </li>
+            @if (request('keyword'))
+            <li class="breadcrumb-item" aria-current="page">search by {{ request('keyword') }}</li>
+            @endif
         </ol>
     </nav>
 
@@ -28,7 +41,7 @@
                         <tr>
 
                             <th>Book Name</th>
-                            <th>Cateogries</th>
+                            <th>Category</th>
                             <th>Description</th>
                             @if (auth()->user()->role->id == 3)<th>Author</th>@endif
                             <th>Control</th>
@@ -36,7 +49,6 @@
                     </thead>
                     <tbody>
                         @forelse($books as $book)
-
 
                             <tr>
 
@@ -47,7 +59,7 @@
                                     @forelse ($book->categories as $category)
                                         <span class=" badge bg-success rounded-pill">{{ $category->name}}</span>
                                     @empty
-                                    <span class=" badge bg-info rounded-pill">No Cateogries</span>
+                                    <span class=" badge bg-info rounded-pill">No Category</span>
                                     @endforelse
                                 </td>
                                 <td style="width: 30%">
@@ -76,7 +88,7 @@
 
 
                         @empty
-
+                            <td colspan="5" class="text-center">No search data</td>
                          @endforelse
                     </tbody>
                 </table>

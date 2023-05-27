@@ -25,7 +25,7 @@
                     <div class="bg-white  p-3 px-4">
 
                         <div class="d-flex justify-content-between">
-                            <h5 class=" text-center">Register Form</h5>
+                            <h5 class=" text-center">Sign Up</h5>
                             <a href="{{ route('home') }}" class="">
                                 <i class="bi bi-backspace-reverse-fill text-primary"></i>
                             </a>

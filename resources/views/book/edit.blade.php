@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
 
-                        <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
+                        <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Edit</button>
                     </form>
                 </div>
 

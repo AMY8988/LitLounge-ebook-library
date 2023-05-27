@@ -15,10 +15,17 @@
     <div class="container-fluid  bg-secondary">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
             <div class="col-12 col-md-6 ">
-               
+
                 <form action="{{ route('user.loginCheck') }}" method="post">
                     @csrf
                     <div class="bg-white  p-3 px-4">
+                        <div class="d-flex justify-content-between">
+                            <h5 class=" text-center">LogIn Form</h5>
+                            <a href="{{ route('home') }}" class="">
+                                <i class="bi bi-backspace-reverse-fill text-primary"></i>
+                            </a>
+                        </div>
+                        <hr>
                         <div class="row align-items-center my-4">
                             <label for="" class="col-4">Email Address</label>
                             <div class="col-8">
