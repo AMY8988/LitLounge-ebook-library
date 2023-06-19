@@ -45,3 +45,10 @@ a{
     object-fit: contain;
     background-color: $secondary;
 }
+
+.related-cover-photo{
+    object-fit: contain;
+    width: 150px;
+    height: 200px;
+    background-color: $info;
+}

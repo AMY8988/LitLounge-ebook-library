@@ -4,12 +4,23 @@
     Dashboard
 @endsection
 
+@section('searchBar')
+<form action="{{ route('user.index') }}" class="d-flex">
+    <input class="form-control form-control-sm me-2 rounded-pill" type="search"
+        placeholder="Search user" name="keyword" value="{{ request('keyword') }}" aria-label="Search">
+    <button class="btn btn-sm btn-primary text-secondary px-3 rounded-pill"
+        type="submit">search</button>
+</form>
+@endsection
+
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
-            <li class="breadcrumb-item" aria-current="page">Categroy List</li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Users</li>
+            @if (request('keyword'))
+            <li class="breadcrumb-item text-info" aria-current="page">search by {{ request('keyword') }}</li>
+            @endif
         </ol>
     </nav>
 
@@ -18,7 +29,7 @@
             <!-- add-item header -->
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class=" mb-0 text-primary">
-                    Category List
+                    User List
                 </h5>
             </div>
             <hr>
@@ -66,7 +77,7 @@
                                 </td>
                             </tr>
                         @empty
-
+                            <td colspan="6" class="text-center">No search data</td>
                          @endforelse
                     </tbody>
                 </table>

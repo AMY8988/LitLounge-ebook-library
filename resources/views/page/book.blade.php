@@ -18,6 +18,7 @@
                 <ul class="navbar-nav  mb-2 me-md-4 mb-lg-0">
 
                     <li class="nav-item dropdown">
+
                         <a class="nav-link px-3 dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
@@ -39,6 +40,9 @@
                         </ul>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link px-3 Active" aria-current="page" href="{{ route('home.booklist') }}">Books</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link px-3 " aria-current="page" href="{{ route('home')}}">Home</a>
                     </li>
                     <li class="nav-item">
@@ -54,11 +58,13 @@
                                 <h6 class="mb-0 text-secondary">{{ auth()->user()->name }}</h6>
                             </div>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu dropdown-menu-end bg-primary" aria-labelledby="dropdownMenuButton1">
                             @if (auth()->user()->role->id >= 2)
-                            <li><a class="dropdown-item text-primary" href="{{ route('dashboard') }}">dashboard</a></li>
+                            <li><a class="dropdown-item text-secondary" href="{{ route('dashboard') }}">dashboard</a></li>
                             @endif
-                            <li><a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a></li>
+                            <li><a class="dropdown-item text-secondary" href="{{ route('user.Edit' , auth()->user()->id ) }}">Edit account</a></li>
+                            <li><a class="dropdown-item text-secondary" href="{{ route('user.logout') }}">Log out</a></li>
+
                         </ul>
                     </div>
                 @endauth
@@ -85,7 +91,7 @@
                     @endif
                 </div>
                 <div>
-                    <h5 style="text-decoration: underline" class="mx-4">All Books<i class="bi bi-bookmark-fill mx-2"></i>
+                    <h5 style="text-decoration: underline" class="">All Books<i class="bi bi-bookmark-fill mx-2"></i>
                     </h5>
                 </div>
             </div>
@@ -101,7 +107,7 @@
                                 <h6 class="fw-bold text-nowrap overflow-hidden">{{ Str::words($book->title, 4, '...') }}</h6>
                                 <p class="text-nowrap overflow-hidden">by - {{ Str::words($book->user->name, 3, '...') }}</p>
 
-                                <div class="d-flex overflow-hidden">
+                                <div class="d-flex overflow-hidden my-2">
                                     @forelse ($book->categories as $category)
                                         <span class=" badge bg-dark me-1">{{ $category->name }}</span>
                                     @empty
@@ -109,8 +115,12 @@
                                     @endforelse
                                 </div>
 
-                                <a href="{{ route('page.bookshow' , $book->id) }}" class=" btn border border-0 rounded-4 bg-primary text-secondary px-3 mt-2 ">
+                                <a href="{{ route('page.bookshow' , $book->id) }}" class=" btn  rounded-1 btn-outline-primary border border-2 text-secondary px-3 mt-2 ">
                                     detail
+                                </a>
+                                <a href="{{ route('book.download' , $book->id) }}"
+                                    class=" btn border border-2 rounded-2 btn-outline-primary text-secondary  px-3 mt-2 ">
+                                    Download
                                 </a>
                             </div>
                         </div>

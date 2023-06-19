@@ -2,8 +2,8 @@
     <h3 class="mb-0 text-secondary px-2">LitLounge</h3>
 
     <div class=" mt-5">
-        <a href="{{ route('home') }}" class="item-link d-block text-secondary p-2 ">page</a>
-        <a href="{{ route('dashboard') }}" class="item-link d-block text-secondary p-2">home</a>
+        <a href="{{ route('home') }}" class="item-link d-block text-secondary p-2 ">Page</a>
+        <a href="{{ route('dashboard') }}" class="item-link d-block text-secondary p-2">Home</a>
     </div>
 
     <div class=" mt-2">

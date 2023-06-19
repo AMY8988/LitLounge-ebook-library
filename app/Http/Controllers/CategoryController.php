@@ -15,7 +15,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::paginate(6);
+
+        if (request('keyword')){
+
+            $keyword = request('keyword');
+            $categories = Category::when( request("keyword") , function ($query){
+                $keyword = request('keyword');
+                $query->where("name" ,  $keyword);
+            })->paginate(6)->withQueryString();
+
+        }
+
         return view('category.index' , compact('categories'));
     }
 
@@ -47,6 +58,16 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        if(Auth::user()->role->name == "author"){
+            if($category->user_id == Auth::user()->id){
+                return view('category.show' , compact('category'));
+            }else{
+                return abort(404);
+            }
+        }else{
+            return view('category.show' , compact('category'));
+        }
+
        return view('category.show' , compact('category'));
     }
 
@@ -55,6 +76,16 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        if(Auth::user()->role->name == "author"){
+            if($category->user_id == Auth::user()->id){
+                return view('category.edit' , compact('category'));
+            }else{
+                return abort(404);
+            }
+        }else{
+            return view('category.edit' , compact('category'));
+        }
+
         return view('category.edit' , compact('category'));
     }
 
@@ -68,7 +99,6 @@ class CategoryController extends Controller
 
         $category->name = $request->name;
         $category->update();
-
         return redirect()->route('category.index');
     }
 

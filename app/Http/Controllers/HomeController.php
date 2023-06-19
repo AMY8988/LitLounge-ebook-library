@@ -10,6 +10,18 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     //
+
+    public function register(){
+        $roles = Role::where('id','<',3)->get();
+        $categories = Category::all();
+        return view('register' , compact(['roles' , 'categories']));
+    }
+
+    public function login(){
+        $categories = Category::all();
+        return view('login' , compact('categories'));
+    }
+
     public function index(){
         $books = Book::all()->take(4);
         $categories = Category::all();
@@ -17,9 +29,7 @@ class HomeController extends Controller
         return view('page.home' , compact(['categories' , 'roles' , 'books']));
     }
 
-    public function search(){
 
-    }
 
     public function bookList(){
 
@@ -41,8 +51,6 @@ class HomeController extends Controller
             $books = Book::all();
         }
 
-
-        // $books = Book::all();
         $categories = Category::all();
         $roles = Role::where('id','<',3)->get();
         return view('page.book' , compact(['categories' , 'roles' , 'books']));
@@ -65,12 +73,5 @@ class HomeController extends Controller
         return view('page.book' , compact(['categories' , 'roles' , 'books']));
     }
 
-    public function register(){
-        $roles = Role::where('id','<',3)->get();
-        return view('register' , compact('roles'));
-    }
 
-    public function login(){
-        return view('login');
-    }
 }

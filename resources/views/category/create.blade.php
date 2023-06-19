@@ -7,9 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Data</li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Category</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Create Category</li>
         </ol>
     </nav>
 

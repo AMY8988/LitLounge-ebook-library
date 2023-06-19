@@ -8,7 +8,7 @@
 @section('searchBar')
 <form action="{{ route('book.index') }}" class="d-flex">
     <input class="form-control form-control-sm me-2 rounded-pill" type="search"
-        placeholder="Search" name="keyword" value="{{ request('keyword') }}" aria-label="Search">
+        placeholder="Search book" name="keyword" value="{{ request('keyword') }}" aria-label="Search">
     <button class="btn btn-sm btn-primary text-secondary px-3 rounded-pill"
         type="submit">search</button>
 </form>
@@ -17,11 +17,10 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Book List </li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Books</li>
             @if (request('keyword'))
-            <li class="breadcrumb-item" aria-current="page">search by {{ request('keyword') }}</li>
+            <li class="breadcrumb-item text-info" aria-current="page">search by {{ request('keyword') }}</li>
             @endif
         </ol>
     </nav>

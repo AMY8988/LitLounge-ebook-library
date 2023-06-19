@@ -1,4 +1,6 @@
-@extends('layout.master')
+{{-- No Use File --}}
+
+{{-- @extends('layout.master')
 
 @section('title')
     Dashboard
@@ -36,9 +38,9 @@
             @section('content')
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Category</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Edit Category</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Category</a></li>
+                        <li class="breadcrumb-item text-info" aria-current="page">Edit Category</li>
                     </ol>
                 </nav>
 
@@ -94,4 +96,4 @@
         </div>
     </div>
 @endsection
-
+ --}}

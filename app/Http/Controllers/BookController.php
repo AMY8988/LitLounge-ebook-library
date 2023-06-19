@@ -18,6 +18,23 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    //  Book download for reader page
+     public function downloadFile(Book $book){
+        return response()->download(public_path( "storage/" . $book->fileUpload));
+    }
+
+    //book detail show for reader page
+    public function bookshow(Book $book){
+        $categories = Category::all();
+
+        $relatedBooks = Book::whereHas( 'user' , function($query) use ($book) {
+            $relatedUser = $book->user_id;
+            $query->where('id' , $relatedUser);
+        })->where("id", "!=" , $book->id)->get()->take(3);
+        return view('page.bookDetail' , compact(['book' , 'categories' , 'relatedBooks']));
+    }
+
     public function index()
     {
 
@@ -29,6 +46,8 @@ class BookController extends Controller
                 $query->where("title" , "like" , "%$keyword%")
                 ->orWhere( "description" , "like" , "%$keyword%");
             })->orWhereHas( 'user' , function($query) use ($keyword) {
+                $query->where('name' , $keyword);
+            })->orWhereHas( 'categories' , function($query) use ($keyword) {
                 $query->where('name' , $keyword);
             })->paginate(7)->withQueryString();
 
@@ -54,11 +73,7 @@ class BookController extends Controller
         return view('book.create' , compact('categories'));
     }
 
-    public function downloadFile(Book $book){
 
-        return response()->download(public_path( "storage/" . $book->fileUpload));
-
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,7 +85,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->description = $request->description;
-        $book->user_id = User::inRandomOrder()->first()->id;
+        $book->user_id = Auth::user()->id;
 
         if($request->hasFile('coverPhoto')){
              $fileName = time(). "_" . $request->file('coverPhoto')->getClientOriginalName();
@@ -106,12 +121,9 @@ class BookController extends Controller
         }
     }
 
-    public function bookshow(Book $book){
-        $categories = Category::all();
-        return view('page.bookDetail' , compact(['book' , 'categories']));
-    }
 
-  
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -119,7 +131,17 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $categories = Category::all();
-        return view('book.edit' , compact(['book' , 'categories']));
+
+        if(Auth::user()->role->name == "author"){
+            if($book->user_id == Auth::user()->id){
+                return view('book.edit' , compact(['book' , 'categories']));
+            }else{
+                return abort(404);
+            }
+        }else{
+            return view('book.edit' , compact(['book' , 'categories']));
+        }
+
     }
 
     /**
@@ -131,7 +153,7 @@ class BookController extends Controller
 
         $book->title = $request->title;
         $book->description = $request->description;
-        $book->user_id = User::inRandomOrder()->first()->id;
+
 
         if($request->hasFile('coverPhoto')){
 

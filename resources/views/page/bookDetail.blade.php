@@ -53,12 +53,11 @@
                                 <h6 class="mb-0 text-secondary">{{ auth()->user()->name }}</h6>
                             </div>
                         </button>
-                        <ul class="dropdown-menu  bg-primary" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu dropdown-menu-end  bg-primary" aria-labelledby="dropdownMenuButton1">
                             @if (auth()->user()->role->id >= 2)
                                 <li><a class="dropdown-item text-secondary" href="{{ route('dashboard') }}">dashboard</a></li>
                             @endif
-
-
+                            <li><a class="dropdown-item text-secondary" href="{{ route('user.Edit' , auth()->user()->id ) }}">Edit account</a></li>
                             <li><a class="dropdown-item text-secondary" href="{{ route('user.logout') }}">Log out</a></li>
                         </ul>
                     </div>
@@ -81,11 +80,11 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-between">
 
-                <div>
+                {{-- <div>
                     <h5 style="text-decoration: underline" class="my-4">Book Detail<i
                             class="bi bi-bookmark-fill mx-2"></i>
                     </h5>
-                </div>
+                </div> --}}
             </div>
 
             <div class="row">
@@ -94,8 +93,9 @@
                     <img src="{{ Storage::url($book->coverPhoto) }}" class="coverPhoto2" alt="...">
                     <div class="d-flex flex-column border-0 my-5">
                         <div class="">
-                            <h6 class="fw-bold text-nowrap ">{{ $book->title }}</h6>
-                            <p class="text-nowrap ">by - {{ $book->user->name }}</p>
+                            <h5 class="fw-bold text-nowrap ">{{ $book->title }}</h5>
+                            <span class=" text-black-50 ">published {{ $book->created_at->diffForHumans() }}</span>
+                            <p class="text-nowrap mt-3">by - {{ $book->user->name }}</p>
                             <div class="d-flex ">
                                 @forelse ($book->categories as $category)
                                     <span class=" badge bg-dark me-1">{{ $category->name }}</span>
@@ -103,7 +103,7 @@
                                     <span class=" badge bg-info me-1">No Category</span>
                                 @endforelse
                             </div>
-                            <p>{{ $book->description }}</p>
+                            <p class="my-3">{{ $book->description }}</p>
 
                             <a href="{{ route('book.download' , $book->id) }}"
                                 class=" btn border border-0 rounded-4 bg-primary text-secondary px-3 mt-2 ">
@@ -113,7 +113,37 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-4 "></div>
+                <div class="col-12 col-md-4 ">
+                    <div>
+                        <h5 class="">Related Book<i class="bi bi-bookmark-fill mx-2"></i></h5>
+                    </div>
+                    @forelse ($relatedBooks as $book)
+                    <div class="bg-success d-flex gap-4 my-4">
+                        <div class="">
+                            <img src="{{ Storage::url($book->coverPhoto) }}" class="related-cover-photo" alt="">
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="text-secondary">
+                                <h5 class="fw-bold">{{ $book->title }}</h5>
+                                <p>by - {{ $book->user->name }}</p>
+
+                                <a href="{{ route('page.bookshow' , $book->id) }}"
+                                    class=" btn border border-0 rounded-pill bg-primary text-white  ">
+                                    detail
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                        <div class="bg-light bg-opacity-50 p-2 rounded my-2">
+                            <p class="mb-0 text-black-50">No Result</p>
+                        </div>
+                    @endforelse
+                    <div class="">
+                        <a href="{{ route('home.booklist') }}" style="text-decoration: underline" class=" fw-bold">see more</a>
+                    </div>
+                </div>
+
             </div>
 
         </div>

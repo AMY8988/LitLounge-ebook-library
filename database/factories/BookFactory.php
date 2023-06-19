@@ -17,10 +17,14 @@ class BookFactory extends Factory
      */
     public function definition(): array
     {
+        $filePath = storage_path('app/public/photoUploads');
         return [
+
+
             'title' => fake()->unique()->name(),
-            'description' => fake()->realText( 100,  2),
-            'user_id' => User::inRandomOrder()->first()->id
+            'description' => fake()->realText( 250 ,2),
+            'user_id' => User::inRandomOrder()->first()->id,
+
         ];
     }
 }

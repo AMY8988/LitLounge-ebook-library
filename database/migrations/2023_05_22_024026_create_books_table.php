@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->string('fileUpload')->nullable();
             $table->string('coverPhoto')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();

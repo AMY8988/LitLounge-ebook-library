@@ -7,9 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Edit Book</li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('book.index')}}">Books</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Edit Book</li>
         </ol>
     </nav>
 
@@ -59,7 +59,7 @@
 
                                         <div class="col-12">
                                             <label for="title" class="col-form-label fw-bold">Book(File Upload)</label>
-                                            <input type="file" name="fileUpload" class="form-control @error('fileUpload') is-invalid @enderror">
+                                            <input type="file" name="fileUpload" value="{{ old('fileUpload' , $book->fileUpload)}}" class="form-control @error('fileUpload') is-invalid @enderror">
                                             @error('fileUpload')
                                                 <div class=" invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -88,6 +88,8 @@
                                 </div>
 
                         <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Edit</button>
+                    <a href="{{ route('dashboard') }}" class="btn  btn-primary rounded-pill text-secondary px-3">Cancel</a>
+
                     </form>
                 </div>
 

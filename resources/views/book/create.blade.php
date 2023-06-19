@@ -7,9 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item" aria-current="page">Create Book</li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('book.index')}}">Books</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Create Book</li>
         </ol>
     </nav>
 
@@ -87,6 +87,8 @@
                         </div>
 
                         <button class="btn btn-primary rounded-pill px-4 my-3 text-secondary">Add</button>
+                        <a href="{{ route('dashboard') }}" class="btn  btn-primary rounded-pill text-secondary px-3">Cancel</a>
+
                     </form>
                 </div>
 

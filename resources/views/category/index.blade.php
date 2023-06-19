@@ -4,12 +4,23 @@
     Dashboard
 @endsection
 
+@section('searchBar')
+<form action="{{ route('category.index') }}" class="d-flex">
+    <input class="form-control form-control-sm me-2 rounded-pill" type="search"
+        placeholder="Search category" name="keyword" value="{{ request('keyword') }}" aria-label="Search">
+    <button class="btn btn-sm btn-primary text-secondary px-3 rounded-pill"
+        type="submit">search</button>
+</form>
+@endsection
+
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
-            <li class="breadcrumb-item" aria-current="page">Categroy List</li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Categories</li>
+            @if (request('keyword'))
+            <li class="breadcrumb-item text-info" aria-current="page">search by {{ request('keyword') }}</li>
+            @endif
         </ol>
     </nav>
 
@@ -58,10 +69,13 @@
                                 </td>
                             </tr>
                         @empty
-
+                            <td colspan="5" class="text-center">No search data</td>
                          @endforelse
                     </tbody>
                 </table>
+                <div>
+                    {{$categories->links()}}
+                </div>
             </div>
 
 

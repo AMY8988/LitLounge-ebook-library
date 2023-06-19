@@ -1,4 +1,7 @@
-<nav class="navbar navbar-light bg-secondary ">
+{{-- No Use File--}}
+
+
+{{-- <nav class="navbar navbar-light bg-secondary ">
     <div class="container-fluid p-0">
 
         <form action="{{ route('book.index') }}" class="d-flex">
@@ -12,18 +15,16 @@
         <div class="dropdown ms-auto">
             <button class="btn btn-primary dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton1"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                <div class=" d-inline-block">
-                    <img src="{{ asset('img/323948021_1219521351989625_30853411364063285_n.jpg') }}" class="rounded-pill" style="width: 50px;height:50px;" alt="">
-                </div>
+
                 <div class=" d-inline-block  mx-2">
                     <h6 class="mb-0 text-secondary">{{ auth()->user()->name }}</h6>
                     <span class="  text-secondary ">{{ auth()->user()->role->name }}</span>
                 </div>
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="{{ route('user.logout') }}">Log out</a></li>
             </ul>
         </div>
 
     </div>
-</nav>
+</nav> --}}

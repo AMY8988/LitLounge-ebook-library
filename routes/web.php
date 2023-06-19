@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashBoardHomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Models\Role;
@@ -33,21 +34,23 @@ Route::middleware('authed')->group(function(){
 //user logout
 Route::get('logout' , [UserController::class , 'logout'])->name('user.logout');
 
-
-
 //Reader Page
 Route::get('home/bookList', [HomeController::class , 'bookList'])->name('home.booklist');
-Route::get('home/books/{book}', [BookController::class , 'bookShow'])->name('page.bookshow');
-Route::get('download/{book}', [BookController::class , 'downloadFile'])->name('book.download');
 
-//books base on category
-Route::get('home/bookCate' , [HomeController::class , "booksBaseCate"])->name('bookCate');
+Route::middleware('auth')->group(function(){
+    Route::get('home/books/{book}', [BookController::class , 'bookShow'])->name('page.bookshow');
+    Route::get('download/{book}', [BookController::class , 'downloadFile'])->name('book.download');
+    Route::get('home/user/{id}', [UserController::class , 'edit'])->name('user.Edit');
+    Route::put('home/user/{user}', [UserController::class , 'update'])->name('user.Update');
+    //books base on category
+    Route::get('home/bookCate' , [HomeController::class , "booksBaseCate"])->name('bookCate');
+});
 
 //dashboard for admin and author
-Route::get('dashboard' , function(){
-return view('dashboard.home');
-})->name('dashboard')->middleware('isAdmin&Author');
+Route::get('dashboard' , [DashBoardHomeController::class , 'index'])->name('dashboard')->middleware('isAdmin&Author');
 Route::get('dashboard/book' , [BookController::class , 'index'])->name('book.index');
+
+
 Route::middleware('isAdmin&Author')->prefix('dashboard')->group(function(){
     Route::resource('book', BookController::class);
     Route::resource('category', CategoryController::class)->middleware('isAdmin');

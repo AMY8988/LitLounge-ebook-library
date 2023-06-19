@@ -16,8 +16,22 @@ class UserController extends Controller
     public function index()
     {
 
-
         $users = User::paginate(6);
+
+        if (request('keyword')){
+
+            $keyword = request('keyword');
+            $users = User::when( request("keyword") , function ($query){
+                $keyword = request('keyword');
+                $query->where("name" ,  $keyword)
+                ->orWhere( "email" , $keyword);
+            })->orWhereHas( 'role' , function($query) use ($keyword) {
+                $query->where('name' , $keyword);
+            })->paginate(6)->withQueryString();
+
+        }
+
+
         return view('user.index' , compact('users'));
     }
 
@@ -32,7 +46,7 @@ class UserController extends Controller
         if(Auth::attempt($credentials)){
             return redirect()->route('dashboard');
         }else{
-            return redirect()->back();
+            return redirect()->back()->with('status' , "Email doesn't match");
         }
     }
 
@@ -76,9 +90,16 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $user, Request $request)
     {
-        //
+        $user = User::findOrFail($request->id);
+        // dd(Auth::user()->id , $user->id);
+        if(Auth::user()->id == $user->id){
+            return view('user.edit' , compact('user'));
+        }else{
+            abort(404);
+        }
+
     }
 
     /**
@@ -86,7 +107,11 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->update();
+
+        return redirect()->route('dashboard');
     }
 
     /**

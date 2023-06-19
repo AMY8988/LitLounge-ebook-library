@@ -7,10 +7,9 @@
 @section('content')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Book</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('book.index') }}">Book Lists</a></li>
-            <li class="breadcrumb-item" aria-current="page">Book Detail</li>
+            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{route('book.index')}}">Books</a></li>
+            <li class="breadcrumb-item text-info" aria-current="page">Book Detail</li>
         </ol>
     </nav>
 
@@ -33,11 +32,11 @@
 
                             <tr>
                                 <td>Book Name -</td>
-                                <td>{{ $book->title }}</td>
+                                <td class=" w-75">{{ $book->title }}</td>
                             </tr>
                             <tr>
                                 <td>Categories -</td>
-                                <td>
+                                <td class=" w-75">
                                     @forelse ($book->categories as $category)
                                         <span class=" badge bg-success">{{ $category->name }}</span>
                                     @empty
@@ -47,15 +46,15 @@
                             </tr>
                             <tr>
                                 <td>Description -</td>
-                                <td>{{ $book->description }}</td>
+                                <td class=" w-75">{{ $book->description }}</td>
                             </tr>
                             <tr>
                                 <td>Created_at -</td>
-                                <td>{{ $book->created_at }}</td>
+                                <td class=" w-75">{{ $book->created_at }}</td>
                             </tr>
                             <tr>
                                 <td>Updated_at -</td>
-                                <td>{{ $book->updated_at }}</td>
+                                <td class=" w-75">{{ $book->updated_at }}</td>
                             </tr>
                         </table>
                     </div>
