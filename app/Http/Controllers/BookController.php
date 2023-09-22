@@ -21,6 +21,7 @@ class BookController extends Controller
 
     //  Book download for reader page
      public function downloadFile(Book $book){
+
         return response()->download(public_path( "storage/" . $book->fileUpload));
     }
 

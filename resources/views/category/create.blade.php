@@ -28,7 +28,6 @@
                     <div class="col-12 col-md-4 d-inline-block">
                         <label for="title" class="col-form-label fw-bold">Category Name</label>
                         <input type="text" name="name" id="title" class="form-control @error('name') is-invalid
-
                         @enderror " placeholder="category name" value="{{ old('name') }}">
                         @error('name')
                         <div class=" invalid-feedback">{{ $message }}</div>

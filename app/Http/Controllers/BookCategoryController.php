@@ -29,7 +29,7 @@ class BookCategoryController extends Controller
      */
     public function store(StoreBookCategoryRequest $request)
     {
-        dd($request);
+//        dd($request);
         // $bookCategory = new BookCategory();
 
         // foreach($request->category_id as $caregroyId){
