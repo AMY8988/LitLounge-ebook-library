@@ -1,4 +1,4 @@
-<h3>Laravel with database CRUD and Auth </h3>
+<h3>Laravel with database SetUp </h3>
 
 <p>Needed Setup Cmd</p>
 <ul>
